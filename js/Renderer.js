@@ -188,7 +188,7 @@ export default class Renderer {
                     const light = 40 + t * (90 - 40);
                     ctx.fillStyle = `hsl(${hue},100%,${light}%)`;
                 }
-                ctx.fillRect(Math.round(px - pxW/2), Math.round(py - pxH/2), pxW, pxH);//Math.ceil(pxW), Math.ceil(pxH));
+                ctx.fillRect(Math.round(px - pxW/2 - 0.1), Math.round(py - pxH/2 - 0.1), pxW, pxH);//Math.ceil(pxW), Math.ceil(pxH));
             }
         }
     }
