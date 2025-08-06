@@ -66,11 +66,12 @@ function getPotential() {
 
 function metric(x) {
     const [q1, q2] = x;
+    let g11; let g22; let g12;
     switch(type.metric) {
         case "pendulum":
-            const g11 = (1 + mu) *l1*l1;
-            const g22 = mu * l2*l2;
-            const g12 = mu*l1*l2*Math.cos(q1-q2);
+            g11 = (1 + mu) *l1*l1;
+            g22 = mu * l2*l2;
+            g12 = mu*l1*l2*Math.cos(q1-q2);
             return [ [g11, g12], [g12, g22] ];
 
         case "Schwarzschild":
@@ -78,9 +79,9 @@ function metric(x) {
             const f = 1/(1 - rs/r);
             const factor = 1/(r*r);
 
-            const g11 = 1 + factor*(f-1)*q1*q1;
-            const g22 = 1+factor*(f-1)*q2*q2;
-            const g12 = (f-1)*q1*q2*factor;
+            g11 = 1 + factor*(f-1)*q1*q1;
+            g22 = 1+factor*(f-1)*q2*q2;
+            g12 = (f-1)*q1*q2*factor;
 
             return [ [g11, g12], [g12, g22] ];
 
