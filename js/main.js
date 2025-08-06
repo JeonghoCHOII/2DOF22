@@ -54,7 +54,7 @@ const gravity = 9.8;
 const rs = 0.4;
 let k = -0.5 * rs;
 
-const dt = 0.001;
+const dt = 1e-3;
 const dq = 1e-4;
 
 let x = [0, 0];
@@ -398,7 +398,7 @@ document.getElementById("potentialSelect").addEventListener("change", () => {
 
     layer1.clearRect(0,0,WIDTH,HEIGHT);
     layer4.clearRect(0,0,WIDTH,HEIGHT);
-    drawLayer14(layer1, layer4, x, potential, G_SCALE, WIDTH, HEIGHT);
+    if (type.metric !== "free") drawLayer14(layer1, layer4, x, potential, G_SCALE, WIDTH, HEIGHT);
 });
 
 document.getElementById("metricSelect").addEventListener("change", () => {
