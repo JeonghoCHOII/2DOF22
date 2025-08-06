@@ -2,7 +2,7 @@ import { RK4step } from './PhysicsEngine.js';
 
 self.onmessage = ({ data }) => {
 	// main.js 에서 보낸 상태벡터와 시간 간격 수신
-	const { x, v, dt, MASS, potential, metric, const, Q, dq } = data;
+	const { x, v, dt, MASS, potential, metric, constraint, Q, dq } = data;
 
 	// RK4 한 스텝 계산
 	const { x: nx, v: nv, a: na } 
