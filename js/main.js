@@ -213,7 +213,7 @@ physicsWorker.onmessage = ({ data }) => {
     workerStepCount++;
 
     if (workerStepCount < 32) {
-        physicsWorker.postMessage({ x, v, dt, MASS, potential, metric, const, Q, dq });
+        physicsWorker.postMessage({ x, v, dt, MASS, potential, metric, constraint, Q, dq });
     } else {
         if (now - lastLogRealTime >= logIntervalMs - 2) {
             const epsilon = Math.abs(computeEnergy(x, v)-E)/E;
