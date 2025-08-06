@@ -366,7 +366,7 @@ function start() {
     layer4.clearRect(0,0,WIDTH,HEIGHT);
 
     //const V0 = potential(x);
-    drawLayer14(layer1, layer4, x, potential, G_SCALE, WIDTH, HEIGHT);
+    drawLayer14(layer1, layer4, x, potential, G_SCALE, WIDTH, HEIGHT, type.potential !== "free");
     
     //initializeWorker();
 
@@ -387,7 +387,7 @@ document.querySelectorAll('input[name="attraction"]').forEach(radio => {
         k = (v === "repulsion") ? Math.abs(k) : -Math.abs(k);
         layer1.clearRect(0,0,WIDTH,HEIGHT);
         layer4.clearRect(0,0,WIDTH,HEIGHT);
-        drawLayer14(layer1, layer4, x, potential, G_SCALE, WIDTH, HEIGHT);
+        drawLayer14(layer1, layer4, x, potential, G_SCALE, WIDTH, HEIGHT, type.potential !== "free");
     });
 });
 
@@ -398,7 +398,7 @@ document.getElementById("potentialSelect").addEventListener("change", () => {
 
     layer1.clearRect(0,0,WIDTH,HEIGHT);
     layer4.clearRect(0,0,WIDTH,HEIGHT);
-    if (type.potential !== "free") drawLayer14(layer1, layer4, x, potential, G_SCALE, WIDTH, HEIGHT);
+    drawLayer14(layer1, layer4, x, potential, G_SCALE, WIDTH, HEIGHT, type.potential !== "free");
 });
 
 document.getElementById("metricSelect").addEventListener("change", () => {
