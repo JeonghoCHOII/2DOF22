@@ -1,6 +1,6 @@
+import * as math from 'https://cdn.jsdelivr.net/npm/mathjs@13.0.0/+esm';
 import { gradient, hessian, gradientRE, hessianRE } from './MathCore.js';
-import * as math from 'https://cdn.jsdelivr.net/npm/mathjs@13.0.0/+esm'; 
-export { math };
+//export { math };
 
 
 /*********************************

@@ -1,5 +1,7 @@
 import { computeAccelerate, RK4step } from './PhysicsEngine.js';
-import { math } from './PhysicsEngine.js';
+//import { math } from './PhysicsEngine.js';
+//import * as math from 'https://cdn.jsdelivr.net/npm/mathjs@13.0.0/+esm'; 
+//export { math };
 import { drawLine, drawParticle, drawOscillator, drawPendulum, drawLayer14 } from './Renderer.js';
 
 //const physicsWorker = new Worker(new URL('./PhysicsWorker.js', import.meta.url), { type: 'module' });
