@@ -1,5 +1,5 @@
 import { computeAccelerate, RK4step } from './PhysicsEngine.js';
-import { drawLine, drawParticle, drawOscillator, drawPendulum, drawLayer14 } from './Renderer.js'
+import { drawLine, drawParticle, drawOscillator, drawPendulum, drawLayer14 } from './Renderer.js';
 
 const canvas1 = document.getElementById("layer1");
 const layer1 = canvas1.getContext("2d");
