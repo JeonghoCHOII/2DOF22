@@ -59,7 +59,7 @@ export function computeAccelerate(MASS, x, v, metric, potential, constraint, Q, 
     const g0 = metric(x);
     const inv = math.inv(g0);
 
-    const ∇V = gradientRE(potential, x, h);
+    const dV = gradientRE(potential, x, h);
     const f0 = constraint(x);
 
     const G = ChristoffelSymbol(metric, x);
@@ -75,7 +75,7 @@ export function computeAccelerate(MASS, x, v, metric, potential, constraint, Q, 
         aG[i] = sum;
     }
 
-    const A0 = Q.map( (e, i) => e/MASS - aG[i] - ∇V[i]/MASS);
+    const A0 = Q.map( (e, i) => e/MASS - aG[i] - dV[i]/MASS);
     if (f0 === 0) {
         for (let i = 0; i < n; i++) {
             let ai = 0;
@@ -87,20 +87,20 @@ export function computeAccelerate(MASS, x, v, metric, potential, constraint, Q, 
         return A;
     }
 
-    const ∇f = gradientRE(constraint, x, h);
+    const df = gradientRE(constraint, x, h);
     const Hf = hessianRE(constraint, x, h);
 
     // lagrange multiplier의 계산:
     // 𝜆 = -(F_i g^ij F_j)^(-1) (F_i g^ij A0_j + H_ij v^i v^j)
     let lambda = 0;
-    if (∇f.some(e => e !== 0)) {
+    if (df.some(e => e !== 0)) {
         let FgF = 0;
         let FgA = 0;
         let vHv = 0;
         for (let i = 0; i < n; i++) {
             for (let j = 0; j < n; j++) {
-                FgF += ∇f[i] * g0[i][j] * ∇f[j];
-                FgA += ∇f[i] * g0[i][j] * A0[j];
+                FgF += df[i] * g0[i][j] * df[j];
+                FgA += df[i] * g0[i][j] * A0[j];
                 vHv += v[i] * Hf[i][j] * v[j];
             }
         }
@@ -110,7 +110,7 @@ export function computeAccelerate(MASS, x, v, metric, potential, constraint, Q, 
     for (let i = 0; i < n; i++) {
         let ai = 0;
         for (let j = 0; j < n; j++) {
-            ai += inv[i][j]*(A0[j] + lambda * ∇f[j]);
+            ai += inv[i][j]*(A0[j] + lambda * df[j]);
         }
         A[i] = ai;
     }
