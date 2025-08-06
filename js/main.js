@@ -238,7 +238,7 @@ function animate() {
 
     prevx = x.slice();
     workerStepCount = 0;
-    physicsWorker.onmessage({ x, v, dt, MASS, potential, metric, const, Q, dq });
+    physicsWorker.onmessage({ x, v, dt, MASS, potential, metric, constraint, Q, dq });
 }
 
 function start() {
