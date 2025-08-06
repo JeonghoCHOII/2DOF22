@@ -210,7 +210,7 @@ function animate() {
             lastLogRealTime = now;
         }
     }
-    drawLine(layer3, prevx, x, G_SCALE, WIDTH, HEIGHT);
+    drawLine(layer2, prevx, x, G_SCALE, WIDTH, HEIGHT);
     drawParticle(layer3, x, a, G_SCALE, WIDTH, HEIGHT);
     drawOscillator(otx, x, K_SCALE, oWIDTH, oHEIGHT);
     drawPendulum(ptx, x, l1, l2, P_SCALE , pWIDTH, pHEIGHT)
