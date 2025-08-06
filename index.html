@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>2DOFSim-Lagrangian (Refactored)</title>
+<script type="module">
+	import { create, all } from 'https://cdn.jsdelivr.net/npm/mathjs@11.9.1/es6/math.js';
+	const math = create(all);
+
+	// physicsCore.js 로직을 이 안에서 import
+	import './js/physicsCore.js';
+</script>
+<!--style>
+  /* 스타일은 원본과 동일하게 유지 */
+  body { font-family: 'Segoe UI', sans-serif; background-color: #f9f9f9; margin: 20px; color: #222; }
+  .settings-container { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: left; align-items: stretch; margin-bottom: 1.5rem; }
+  .controls { flex: 1; display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-start; padding: 10px; margin-bottom: 12px; background-color: #fff; border-left: 4px solid #4B0082; border-radius: 4px; max-width: 600px; }
+  .controls strong { display: block; margin: 0 0 0.5rem 0; font-weight: bold; font-size: 0.9rem; flex: auto; }
+  .controls > .initialset { display: flex; align-items: center; flex: 0 0 100%; gap: 0.5rem; margin-bottom: 0.5rem; }
+  .controls > .initialset strong { display: inline-block; margin: 0; flex: none; }
+  .controls > .initialset input { display: inline-block; margin: 0; flex: none; }
+  .controls input[type="number"], .controls input[type="text"], .controls select { margin: 0 0 0.5rem 0; padding: 4px 8px; font-size: 14px; border: 1px solid #ccc; border-radius: 3px; width: 120px; box-sizing: border-box; }
+  #constraintInput { width: 180px; }
+  .buttons { display: flex; flex: 0 0 100%; gap: 0.5rem; margin-bottom: 1rem; }
+  .buttons input[type="button"], .buttons button { background-color: #4B0082; color: #fff; padding: 6px 12px; border: none; border-radius: 4px; font-size: 14px; cursor: pointer; transition: background-color 0.2s; }
+  .buttons input[type="button"]:hover, .buttons button:hover { background-color: #360062; }
+  .canvas-container { display: flex; flex-wrap: wrap; flex-direction: column; justify-content: center; align-items: center; gap: 1rem; margin: 0 auto; max-width: 800; }
+  #graph { position: relative; display: inline-block; width: 100%; max-width: 600px; aspect-ratio: 1 / 1; border: 2px solid #000; margin-top: 20px; vertical-align: top; }
+  #graph canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+  #layer1 { z-index: 1; } #layer2 { z-index: 2; } #layer3 { z-index: 3; } #layer4 { z-index: 4; }
+  #cvs3, #cvs2 { position: relative; vertical-align: top; border: 1px solid #000; width: 100%; margin-top: 20px; max-width: 600px; box-sizing: border-box; }
+  #cvs3 { aspect-ratio: 1 / 1; }
+  #cvs2 { aspect-ratio: 3 / 1; }
+  #logTable { width: 100%; border-collapse: collapse; margin-top: 10px; background-color: #fff; }
+  #logTable th, #logTable td { border: 1px solid #999; padding: 6px 10px; text-align: center; }
+  #logTable th { background-color: #eee; }
+  #attractionWrapper { margin-top: 6px; font-size: 14px; }
+  canvas.canvas { border: 1px solid #999; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1); }
+</style-->
+<link  rel="stylesheet" href="./style.css" type="text/css">
+</head>
+<body>
+<div class = "settings-container">
+	<div class="controls">
+		<div class="initialset">
+		<strong>Initial q₁, q₂:</strong>
+			<input type="number" id="inputQ1" value="1" step="0.1">,
+			<input type="number" id="inputQ2" value="0" step="0.1">
+		</div>
+		<div class="initialset">
+		<strong>Initial q̇₁, q̇₂:</strong>
+			<input type="number" id="inputV1" value="0" step="0.1">,
+			<input type="number" id="inputV2" value="0" step="0.1">
+		</div>
+		<div class="initialset">
+			<strong>Graph Scale:</strong>
+			<input type="number" id="inputScale" value="100" step="10">
+		</div>
+	</div>
+
+	<div class="settings">
+		<div class="controls">
+			<strong>Constraint: f(q₁,q₂) = </strong>&nbsp;&nbsp;
+			<input type="text" id="constraintInput" value="0">&nbsp;&nbsp;
+			<strong> = 0</strong>
+		</div>
+
+		<div class="controls">
+			<strong>Metric:</strong>
+			<select id="metricSelect">
+				<option value="pendulum">Pendulum</option>
+				<option value="flat">Flat</option>
+				<option value="Schwarzschild">Schwarzschild</option>
+			</select>
+		</div>
+
+		<div class="controls">
+			<strong>Potential:</strong>
+			<select id="potentialSelect">
+				<option value="pendulum">Pendulum</option>
+				<option value="smallangle">Pendulum (θ≪1)</option>
+				<option value="oscillator">Coupled Oscillator</option>
+				<option value="nearEarth">Gravity (Near Earth)</option>
+				<option value="Central">Central Force</option>
+				<option value="free">Free Body</option>
+			</select>
+			<div id="attractionWrapper" style="display: none;">
+				(Is it gravitation?
+				<label><input type="radio" name="attraction" value="gravitation" checked> Yes</label>
+				<label><input type="radio" name="attraction" value="repulsion"> No</label>
+				)
+			</div>
+    	</div>
+	</div>
+</div>
+
+<div class="buttons" id="Buttoni">
+	<input type="button" value="Start" id="startBtn">
+	<input type="button" value="Stop" id="stopBtn">
+	<button id="captureBtn">Capture line</button>
+</div>
+
+<div class = "canvas-container">  	
+	<div id = "graph">
+		<canvas class = "canvas" id = "layer1" width=600 height=600></canvas>
+		<canvas class = "canvas" id = "layer2" width=600 height=600></canvas>
+		<canvas class = "canvas" id = "layer3" width=600 height=600></canvas>
+		<canvas class = "canvas" id = "layer4" width=600 height=600></canvas>
+	</div>
+	<canvas class = "canvas" id = "cvs3" width=600 height=600></canvas>
+	<canvas class = "canvas" id = "cvs2" width=600 height=200></canvas>
+</div>
+
+<div class="controls">
+	<table border="1" id="logTable">
+		<thead>
+			<tr>
+			<th>Time (s)</th>
+			<th>log₁₀(Error)</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+</div>
+
+<script type="module" src="js/main.js"></script>
+
+</body>
+</html>
