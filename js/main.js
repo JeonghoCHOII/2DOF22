@@ -398,7 +398,7 @@ document.getElementById("potentialSelect").addEventListener("change", () => {
 
     layer1.clearRect(0,0,WIDTH,HEIGHT);
     layer4.clearRect(0,0,WIDTH,HEIGHT);
-    if (type.metric !== "free") drawLayer14(layer1, layer4, x, potential, G_SCALE, WIDTH, HEIGHT);
+    if (type.potential !== "free") drawLayer14(layer1, layer4, x, potential, G_SCALE, WIDTH, HEIGHT);
 });
 
 document.getElementById("metricSelect").addEventListener("change", () => {
