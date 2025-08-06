@@ -280,6 +280,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // stop 클릭 시
   stopBtn.addEventListener('click', () => {
-    stop();
+    breaking();
   });
 });
