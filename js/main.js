@@ -269,8 +269,8 @@ document.getElementById("captureBtn").addEventListener("click", function () {
 });
 
 window.addEventListener('DOMContentLoaded', () => {
-  const startBtn = document.getElementById('startButton');
-  const stopBtn  = document.getElementById('stopButton');
+  const startBtn = document.getElementById('startBtn');
+  const stopBtn  = document.getElementById('stopBtn');
 
   // start 클릭 시
   startBtn.addEventListener('click', () => {
