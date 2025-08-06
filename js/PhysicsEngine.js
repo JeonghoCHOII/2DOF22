@@ -56,6 +56,9 @@ function ChristoffelSymbol(g, x, h = 1e-4) {
 export function computeAccelerate(MASS, x, v, metric, potential, constraint, Q, h = 1e-4) {
     const n = x.length;
     const A = new Array(n).fill(0);
+
+    const Q0 = Q(x,v);
+    
     const g0 = metric(x);
     const inv = math.inv(g0);
 
@@ -75,7 +78,7 @@ export function computeAccelerate(MASS, x, v, metric, potential, constraint, Q, 
         aG[i] = sum;
     }
 
-    const A0 = Q.map( (e, i) => e/MASS - aG[i] - dV[i]/MASS);
+    const A0 = Q0.map( (e, i) => e/MASS - aG[i] - dV[i]/MASS);
     if (f0 === 0) {
         for (let i = 0; i < n; i++) {
             let ai = 0;
