@@ -1,5 +1,5 @@
 import { gradient, hessian, gradientRE, hessianRE } from './MathCore.js';
-import { create, all } from 'mathjs';
+import { create, all } from 'https://cdn.jsdelivr.net/npm/mathjs@11.9.1/es6/math.js';
 const math = create(all);
 
 
