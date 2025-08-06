@@ -193,7 +193,7 @@ export function drawParticle(ctx, x, a, G_SCALE = 100, WIDTH = 600, HEIGHT = 600
 
     const aa = Math.hypot(a[0],a[1])
     const ad1 = a[0] / aa;
-    const ad2 = a[0] / aa;
+    const ad2 = a[1] / aa;
 
     ctx.beginPath();
     ctx.strokeStyle = '#FF0000';
