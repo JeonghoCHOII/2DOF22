@@ -116,6 +116,7 @@ function potential(x) {
 
         default:
             return 0;
+    }
 }
 
 function constraint(x) {
