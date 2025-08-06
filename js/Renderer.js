@@ -130,13 +130,11 @@ function drawSpace(ctx, G_SCALE = 100, WIDTH = 600, HEIGHT = 600) {
     ctx.clearRect(0,0,WIDTH,HEIGHT);
     //const isFree = getPotential() === "free";
 
-    if (type.potential != "free") {
-        const q1min = -WIDTH/(2*G_SCALE), q1max = WIDTH/(2*G_SCALE);
-        const q2min = -HEIGHT/(2*G_SCALE), q2max = HEIGHT/(2*G_SCALE);
-
-        const grid = getGrid(WIDTH, HEIGHT, q1min, q2min, q1max, q2max, potential, x);
-        MapAndContour(grid, ctx);
-    }
+    const q1min = -WIDTH/(2*G_SCALE), q1max = WIDTH/(2*G_SCALE);
+    const q2min = -HEIGHT/(2*G_SCALE), q2max = HEIGHT/(2*G_SCALE);
+    
+    const grid = getGrid(WIDTH, HEIGHT, q1min, q2min, q1max, q2max, potential, x);
+    MapAndContour(grid, ctx);
 
 }
 
