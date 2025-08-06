@@ -258,8 +258,8 @@ export function drawPendulum(ctx, x, l1 = 1, l2 = 1, P_SCALE = 100, WIDTH = 600,
     ctx.fill();
 }
 
-export function drawLayer14(layer1, layer4, x, potential, G_SCALE = 100, WIDTH = 600, HEIGHT = 600) {
-    drawSpace(layer1, potential, G_SCALE, WIDTH, HEIGHT);
+export function drawLayer14(layer1, layer4, x, potential, G_SCALE = 100, WIDTH = 600, HEIGHT = 600, drawpotential = true) {
+    if (drawpotential) drawSpace(layer1, potential, G_SCALE, WIDTH, HEIGHT);
     addLine(layer1, WIDTH, HEIGHT);
     axisName(layer1, WIDTH, HEIGHT);
     drawLegend(layer4, WIDTH)
