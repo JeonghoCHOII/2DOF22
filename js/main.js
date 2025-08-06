@@ -32,6 +32,8 @@ let id = null;
 
 //시간기록
 let now = null;
+const { now: perfNow } = performance;
+
 let startRealTime = null;
 let lastLogRealTime = null;
 let logIntervalMs = 1000;
@@ -207,7 +209,7 @@ function logError(t, epsilon) {
 let workerStepCount = 0;
 let prevx = [0,0];
 physicsWorker.onmessage = ({ data }) => {
-    now = performance.now();
+    now = perfNow();
     const { x: nx, v: nv, a: na } = data;
     x = nx; v = nv; a = na;
     workerStepCount++;
