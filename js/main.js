@@ -207,7 +207,7 @@ function logError(t, epsilon) {
 let workerStepCount = 0;
 let prevx = [0,0];
 physicsWorker.onmessage = ({ data }) => {
-    const now = performance.now();
+    now = performance.now();
     const { x: nx, v: nv, a: na } = data;
     x = nx; v = nv; a = na;
     workerStepCount++;
