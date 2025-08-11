@@ -134,7 +134,7 @@ function drawSpace(ctx, potential, G_SCALE = 100, WIDTH = 600, HEIGHT = 600) {
     const q2min = -HEIGHT/(2*G_SCALE), q2max = HEIGHT/(2*G_SCALE);
 
     const grid = getGrid(WIDTH, HEIGHT, q1min, q2min, q1max, q2max, potential);
-    MapAndContour(grid, ctx);
+    MapAndContour(grid, ctx, G_SCALE, WIDTH, HEIGHT);
 
 
 }
